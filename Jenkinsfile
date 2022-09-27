@@ -14,10 +14,10 @@ pipeline {
      }
       post {
         success {
-          slackSend (message: "FYI: ${BUILD_TAG) has SUCCESSFULLY completed its 'BUILD' stage")
+          slackSend (message: "FYI: ${BUILD_TAG} has SUCCESSFULLY completed its 'BUILD' stage")
         }
         failure {
-          slackSend (message: "ATTENTION: ${BUILD_TAG) has FAILED its 'BUILD' stage")
+          slackSend (message: "ATTENTION: ${BUILD_TAG} has FAILED its 'BUILD' stage")
           }
         }
       }
@@ -34,10 +34,10 @@ pipeline {
           junit 'test-reports/results.xml'
         }
         success {
-          slackSend (message: "FYI: ${BUILD_TAG) has SUCCESSFULLY completed its 'TEST' stage")
+          slackSend (message: "FYI: ${BUILD_TAG} has SUCCESSFULLY completed its 'TEST' stage")
         }
         failure {
-          slackSend (message: "ATTENTION: ${BUILD_TAG) has FAILED its 'TEST' stage")
+          slackSend (message: "ATTENTION: ${BUILD_TAG} has FAILED its 'TEST' stage")
         }
       }
     }
@@ -48,10 +48,10 @@ pipeline {
      }
       post {
         success {
-          slackSend (message: "FYI: ${BUILD_TAG) has SUCCESSFULLY completed its 'DEPLOY' stage")
+          slackSend (message: "FYI: ${BUILD_TAG} has SUCCESSFULLY completed its 'DEPLOY' stage")
         }
         failure {
-          slackSend (message: "ATTENTION: ${BUILD_TAG) has FAILED its 'DEPLOY' stage")
+          slackSend (message: "ATTENTION: ${BUILD_TAG} has FAILED its 'DEPLOY' stage")
         }
     } 
   }
