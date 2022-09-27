@@ -18,7 +18,9 @@ pipeline {
         }
         failure {
           slackSend(message: "ATTENTION: ${BUILD_TAG) has FAILED its 'BUILD' stage")
-   }
+          }
+        }
+      }
     stage ('test') {
       steps {
         sh '''#!/bin/bash
@@ -53,3 +55,4 @@ pipeline {
     } 
   }
  }
+}
