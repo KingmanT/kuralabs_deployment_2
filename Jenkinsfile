@@ -14,43 +14,44 @@ pipeline {
      }
       post {
         success {
-          slackSend(message: "FYI: ${BUILD_TAG) has SUCCESSFULLY completed its 'BUILD' stage")
+          slackSend (message: "FYI: ${BUILD_TAG) has SUCCESSFULLY completed its 'BUILD' stage")
         }
         failure {
-          slackSend(message: "ATTENTION: ${BUILD_TAG) has FAILED its 'BUILD' stage")
+          slackSend (message: "ATTENTION: ${BUILD_TAG) has FAILED its 'BUILD' stage")
           }
         }
       }
-    stage ('test') {
+      
+    stage ('Test') {
       steps {
         sh '''#!/bin/bash
         source test3/bin/activate
         py.test --verbose --junit-xml test-reports/results.xml
         ''' 
       }
-    
       post {
         always {
           junit 'test-reports/results.xml'
         }
         success {
-          slackSend(message: "FYI: ${BUILD_TAG) has SUCCESSFULLY completed its 'TEST' stage")
+          slackSend (message: "FYI: ${BUILD_TAG) has SUCCESSFULLY completed its 'TEST' stage")
         }
         failure {
-          slackSend(message: "ATTENTION: ${BUILD_TAG) has FAILED its 'TEST' stage")
+          slackSend (message: "ATTENTION: ${BUILD_TAG) has FAILED its 'TEST' stage")
         }
       }
     }
+    
     stage ('Deploy') {
       steps {
         sh '/var/lib/jenkins/.local/bin/eb deploy url-shortener-dev'
      }
       post {
         success {
-          slackSend(message: "FYI: ${BUILD_TAG) has SUCCESSFULLY completed its 'DEPLOY' stage")
+          slackSend (message: "FYI: ${BUILD_TAG) has SUCCESSFULLY completed its 'DEPLOY' stage")
         }
         failure {
-          slackSend(message: "ATTENTION: ${BUILD_TAG) has FAILED its 'DEPLOY' stage")
+          slackSend (message: "ATTENTION: ${BUILD_TAG) has FAILED its 'DEPLOY' stage")
         }
     } 
   }
