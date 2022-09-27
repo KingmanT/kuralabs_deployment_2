@@ -12,6 +12,12 @@ pipeline {
         flask run &
         '''
      }
+      post {
+        success {
+          slackSend(message: "FYI: ${BUILD_TAG) has SUCCESSFULLY completed its 'BUILD' stage")
+        }
+        failure {
+          slackSend(message: "ATTENTION: ${BUILD_TAG) has FAILED its 'BUILD' stage")
    }
     stage ('test') {
       steps {
@@ -21,17 +27,29 @@ pipeline {
         ''' 
       }
     
-      post{
+      post {
         always {
           junit 'test-reports/results.xml'
         }
-       
+        success {
+          slackSend(message: "FYI: ${BUILD_TAG) has SUCCESSFULLY completed its 'TEST' stage")
+        }
+        failure {
+          slackSend(message: "ATTENTION: ${BUILD_TAG) has FAILED its 'TEST' stage")
+        }
       }
     }
     stage ('Deploy') {
       steps {
         sh '/var/lib/jenkins/.local/bin/eb deploy url-shortener-dev'
      }
+      post {
+        success {
+          slackSend(message: "FYI: ${BUILD_TAG) has SUCCESSFULLY completed its 'DEPLOY' stage")
+        }
+        failure {
+          slackSend(message: "ATTENTION: ${BUILD_TAG) has FAILED its 'DEPLOY' stage")
+        }
     } 
   }
  }
